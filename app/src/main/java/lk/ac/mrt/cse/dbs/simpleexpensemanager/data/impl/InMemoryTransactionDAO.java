@@ -16,6 +16,9 @@
 
 package lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,6 +42,18 @@ public class InMemoryTransactionDAO implements TransactionDAO {
     public void logTransaction(Date date, String accountNo, ExpenseType expenseType, double amount) {
         Transaction transaction = new Transaction(date, accountNo, expenseType, amount);
         transactions.add(transaction);
+        DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        String dateStr = format.format(date);
+
+        Date date1 = null;
+        try {
+            date1 = new SimpleDateFormat("dd-MM-yyyy").parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        System.out.println(date + "\t" + dateStr + "\t" + date1);
     }
 
     @Override
